@@ -14,6 +14,7 @@ class OAuthProvider implements AuthProviderInterface
 {
     public const GRANT_PASSWORD = "password";
     public const GRANT_CODE     = "authorization_code";
+    public const GRANT_CREDENTIALS = "client_credentials";
 
     /**
      * @var bool
@@ -91,10 +92,18 @@ class OAuthProvider implements AuthProviderInterface
         string $url,
         ?string $username,
         ?string $password,
-        string $grantType = self::GRANT_PASSWORD,
+        ?string $grantType = null,
         ?string $redirectUri = null,
         ?string $code = null
     ) {
+        if (null === $grantType) {
+            if (!empty($password)) {
+                $grantType = self::GRANT_PASSWORD;
+            } else {
+                $grantType = self::GRANT_CREDENTIALS;
+            }
+        }
+
         $this->clientId     = $clientId;
         $this->clientSecret = $clientSecret;
         $this->username     = $username;
@@ -150,6 +159,21 @@ class OAuthProvider implements AuthProviderInterface
                         'client_secret' => $this->clientSecret,
                         'username'      => $this->username,
                         'password'      => $this->password,
+                    ],
+                    'headers'     => [
+                        'Content-Type' => 'application/x-www-form-urlencoded',
+                        'Accept'       => 'application/json',
+                    ],
+                ]
+            );
+        } else if (self::GRANT_CREDENTIALS === $this->grantType) {
+            $response = $this->httpClient->post(
+                '/services/oauth2/token',
+                [
+                    'form_params' => [
+                        'grant_type'    => self::GRANT_CREDENTIALS,
+                        'client_id'     => $this->clientId,
+                        'client_secret' => $this->clientSecret,
                     ],
                     'headers'     => [
                         'Content-Type' => 'application/x-www-form-urlencoded',

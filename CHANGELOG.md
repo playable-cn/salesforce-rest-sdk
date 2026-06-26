@@ -1,4 +1,7 @@
 # CHANGELOG
+##v2.0.4 (2026-06-25)
+[FIX] add grant type "client_credentials"
+
 ##v2.0.3 (2021-02-09)
 [FIX] fix callback call
 
