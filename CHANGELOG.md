@@ -1,6 +1,9 @@
 # CHANGELOG
+##v2.0.5 (2026-06-25)
+[FIX] add grant type "client_credentials" for TokenOAuthProvider
+
 ##v2.0.4 (2026-06-25)
-[FIX] add grant type "client_credentials"
+[FIX] add grant type "client_credentials" for OAuthProvider
 
 ##v2.0.3 (2021-02-09)
 [FIX] fix callback call

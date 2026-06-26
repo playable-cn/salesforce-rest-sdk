@@ -96,7 +96,7 @@ class OAuthProvider implements AuthProviderInterface
         ?string $redirectUri = null,
         ?string $code = null
     ) {
-        if (null === $grantType) {
+        if (empty($grantType)) {
             if (!empty($password)) {
                 $grantType = self::GRANT_PASSWORD;
             } else {
@@ -166,7 +166,7 @@ class OAuthProvider implements AuthProviderInterface
                     ],
                 ]
             );
-        } else if (self::GRANT_CREDENTIALS === $this->grantType) {
+        } elseif (self::GRANT_CREDENTIALS === $this->grantType) {
             $response = $this->httpClient->post(
                 '/services/oauth2/token',
                 [
