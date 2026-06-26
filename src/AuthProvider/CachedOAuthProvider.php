@@ -29,7 +29,7 @@ class CachedOAuthProvider extends OAuthProvider
         string $url,
         ?string $username,
         ?string $password,
-        string $grantType = self::GRANT_PASSWORD,
+        ?string $grantType = null,
         ?string $redirectUri = null,
         ?string $code = null
     ) {
