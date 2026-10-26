@@ -9,7 +9,7 @@
 namespace AE\SalesforceRestSdk\Tests\Psr7;
 
 use AE\SalesforceRestSdk\Psr7\CsvStream;
-use function GuzzleHttp\Psr7\stream_for;
+use GuzzleHttp\Psr7\Utils;
 use PHPUnit\Framework\TestCase;
 
 class CsvStreamTest extends TestCase
@@ -17,7 +17,7 @@ class CsvStreamTest extends TestCase
     public function testRead()
     {
         $testLine = '"Item 1","Item 2","This is a longer'.PHP_EOL.'multiline field","Last Field"'.PHP_EOL;
-        $stream   = stream_for($testLine);
+        $stream   = Utils::streamFor($testLine);
         $csv      = new CsvStream($stream);
 
         $line = CsvStream::readline($stream);
@@ -49,7 +49,7 @@ class CsvStreamTest extends TestCase
         $testLine = '"Name","Alt Name","Description","Alt Desc"'.PHP_EOL.
             '"Item 1","Item 2","This is a longer'.PHP_EOL.'multiline field","Last Field"'.PHP_EOL.
             '"Item 1.5","Item 2.2","This is a longer'.PHP_EOL.'multiline field","Last Field"'.PHP_EOL;
-        $stream   = stream_for($testLine);
+        $stream   = Utils::streamFor($testLine);
         $csv      = new CsvStream($stream);
 
         $rows = [];
@@ -79,7 +79,7 @@ class CsvStreamTest extends TestCase
     public function testWrite()
     {
         $resource = fopen("php://memory", 'r+');
-        $stream   = stream_for($resource);
+        $stream   = Utils::streamFor($resource);
         $csv      = new CsvStream($stream);
 
         $csv->write(

@@ -18,7 +18,7 @@ class ClientTest extends TestCase
      */
     private $client;
 
-    protected function setUp()/* The :void return type declaration that should be here would cause a BC issue */
+    protected function setUp(): void
     {
         $this->client = new Client(
             new OAuthProvider(

@@ -1,10 +1,3 @@
 <?php
-/** @var ClassLoader $loader */
-$loader = require __DIR__.'/../vendor/autoload.php';
-
-use Doctrine\Common\Annotations\AnnotationRegistry;
-use Composer\Autoload\ClassLoader;
-
-AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
-
-return $loader;
+// doctrine/annotations 2 removed AnnotationRegistry::registerLoader(); annotations are autoloaded by Composer.
+return require __DIR__.'/../vendor/autoload.php';

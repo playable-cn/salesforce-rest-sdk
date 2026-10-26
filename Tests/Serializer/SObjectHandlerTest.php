@@ -25,7 +25,7 @@ class SObjectHandlerTest extends TestCase
      */
     private $serializer;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $builder = SerializerBuilder::create();
         $builder->setPropertyNamingStrategy(new IdenticalPropertyNamingStrategy());

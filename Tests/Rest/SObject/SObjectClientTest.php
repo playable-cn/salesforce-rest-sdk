@@ -21,7 +21,7 @@ class SObjectClientTest extends TestCase
      */
     private $client;
 
-    protected function setUp()/* The :void return type declaration that should be here would cause a BC issue */
+    protected function setUp(): void
     {
         $client = new \AE\SalesforceRestSdk\Rest\Client(
             new OAuthProvider(

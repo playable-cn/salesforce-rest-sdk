@@ -70,7 +70,9 @@ class CompositeRequestBuilderTest extends TestCase
         $this->assertInstanceOf(GetSubRequest::class, $get);
         $this->assertEquals("Account", $get->getSObjectType());
         $this->assertEquals("@{FirstCreate.Id}", $get->getSObjectId());
-        $this->assertArraySubset(["Id", "Name"], $get->getFields());
+        foreach (["Id", "Name"] as $field) {
+            $this->assertContains($field, $get->getFields());
+        }
 
         /** @var UpdateSubRequest $update */
         $update = $subrequests[2];

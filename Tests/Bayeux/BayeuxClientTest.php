@@ -28,7 +28,7 @@ class BayeuxClientTest extends TestCase
     /**
      * @throws \Exception
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->client = new BayeuxClient(
             new LongPollingTransport(),

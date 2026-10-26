@@ -38,7 +38,7 @@ class BulkClientTest extends TestCase
     /**
      * @throws \AE\SalesforceRestSdk\AuthProvider\SessionExpiredOrInvalidException
      */
-    protected function setUp()/* The :void return type declaration that should be here would cause a BC issue */
+    protected function setUp(): void
     {
         $this->client = new Client(
             new OAuthProvider(

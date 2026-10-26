@@ -129,7 +129,7 @@ class BayeuxClient
     public function __construct(
         AbstractClientTransport $transport,
         AuthProviderInterface $authProvider,
-        LoggerInterface $logger = null,
+        ?LoggerInterface $logger = null,
         string $version = "44.0"
     ) {
         $this->transport    = $transport;

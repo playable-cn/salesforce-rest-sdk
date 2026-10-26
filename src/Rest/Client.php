@@ -198,7 +198,7 @@ class Client extends AbstractClient
     protected function createHttpClient(): GuzzleClient
     {
         $stack = new HandlerStack();
-        $stack->setHandler(\GuzzleHttp\choose_handler());
+        $stack->setHandler(\GuzzleHttp\Utils::chooseHandler());
         $stack->push(
             Middleware::mapRequest(
                 function (RequestInterface $request) {

@@ -28,7 +28,7 @@ class GenericEventClientTest extends TestCase
      */
     private $channel;
 
-    protected function setUp()/* The :void return type declaration that should be here would cause a BC issue */
+    protected function setUp(): void
     {
         $restClient    = new \AE\SalesforceRestSdk\Rest\Client(
             new OAuthProvider(
@@ -69,7 +69,7 @@ class GenericEventClientTest extends TestCase
         $this->assertGreaterThanOrEqual(0, $res->getFanoutCount());
     }
 
-    protected function tearDown()/* The :void return type declaration that should be here would cause a BC issue */
+    protected function tearDown(): void
     {
         $this->sObjectClient->remove('StreamingChannel', $this->channel);
     }

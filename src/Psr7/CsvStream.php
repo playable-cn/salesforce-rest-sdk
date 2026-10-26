@@ -10,21 +10,27 @@ namespace AE\SalesforceRestSdk\Psr7;
 
 use Psr\Http\Message\StreamInterface;
 
-class CsvStream implements StreamInterface
+/**
+ * CSV reader/writer wrapping a PSR-7 stream.
+ *
+ * It does not implement StreamInterface: read() returns a parsed row and getContents() a row generator,
+ * which psr/http-message 2.0's string return types do not allow.
+ */
+class CsvStream
 {
-    private $stream;
+    private StreamInterface $stream;
 
     public function __construct(StreamInterface $stream)
     {
         $this->stream = $stream;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->stream->__toString();
     }
 
-    public function close()
+    public function close(): void
     {
         $this->stream->close();
     }
@@ -34,37 +40,37 @@ class CsvStream implements StreamInterface
         return $this->stream->detach();
     }
 
-    public function getSize()
+    public function getSize(): ?int
     {
         return $this->stream->getSize();
     }
 
-    public function tell()
+    public function tell(): int
     {
         return $this->stream->tell();
     }
 
-    public function eof()
+    public function eof(): bool
     {
         return $this->stream->eof();
     }
 
-    public function isSeekable()
+    public function isSeekable(): bool
     {
         return $this->stream->isSeekable();
     }
 
-    public function seek($offset, $whence = SEEK_SET)
+    public function seek(int $offset, int $whence = SEEK_SET): void
     {
-        return $this->stream->seek($offset, $whence);
+        $this->stream->seek($offset, $whence);
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         $this->stream->rewind();
     }
 
-    public function isWritable()
+    public function isWritable(): bool
     {
         return $this->stream->isWritable();
     }
@@ -77,7 +83,7 @@ class CsvStream implements StreamInterface
      *
      * @return int
      */
-    public function write($string, $delimiter = ',', $enclosure = '"', $escapeChar = "\\")
+    public function write($string, string $delimiter = ',', string $enclosure = '"', string $escapeChar = "\\"): int
     {
         if (!$this->isWritable()) {
             throw new \RuntimeException("The stream is not writable.");
@@ -100,7 +106,7 @@ class CsvStream implements StreamInterface
         return $this->stream->write($string);
     }
 
-    public function isReadable()
+    public function isReadable(): bool
     {
         return $this->stream->isReadable();
     }
@@ -125,10 +131,6 @@ class CsvStream implements StreamInterface
         $size    = 0;
         $encFlag = false;
         $escFlag = false;
-
-        if ($stream instanceof CsvStream) {
-            throw new \InvalidArgumentException("Cannot use CsvStream::readline on a CsvStream.");
-        }
 
         while (!$stream->eof()) {
             if (null == ($byte = $stream->read(1))) {
@@ -203,7 +205,7 @@ class CsvStream implements StreamInterface
         }
     }
 
-    public function getMetadata($key = null)
+    public function getMetadata(?string $key = null)
     {
         return $this->stream->getMetadata($key);
     }

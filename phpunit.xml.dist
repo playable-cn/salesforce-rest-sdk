@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <phpunit bootstrap="Tests/autoload.php"
          colors="true"
-         verbose="true"
          stopOnFailure="false">
     <php>
         <env name="SF_LOGIN_URL" value="https://test.salesforce.com" />

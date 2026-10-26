@@ -136,7 +136,7 @@ class CompositeSObjectHandler implements SubscribingHandlerInterface
                 )
                 ;
             } elseif (is_string($value)
-                && preg_match('/^\d{4}-\d{2}-\d{2}\T\d{2}:\d{2}:\d{2}(\.\d{4})?(\+\d{4}|\Z)$/', $value) != false) {
+                && preg_match('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{4})?(\+\d{4}|\Z)$/', $value) != false) {
                 $sobject->$field = $context->getNavigator()->accept(
                     $value,
                     ['name' => 'DateTime', 'params' => [\DATE_ISO8601, 'UTC']]

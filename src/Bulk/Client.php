@@ -17,7 +17,6 @@ use AE\SalesforceRestSdk\Serializer\SObjectHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Request;
-use function GuzzleHttp\Psr7\stream_for;
 use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
 use JMS\Serializer\SerializerBuilder;
@@ -55,7 +54,7 @@ class Client extends AbstractClient
     protected function createHttpClient(): \GuzzleHttp\Client
     {
         $stack = new HandlerStack();
-        $stack->setHandler(\GuzzleHttp\choose_handler());
+        $stack->setHandler(\GuzzleHttp\Utils::chooseHandler());
         $stack->push(
             Middleware::mapRequest(
                 function (RequestInterface $request) {
@@ -320,7 +319,7 @@ class Client extends AbstractClient
      * @throws SessionExpiredOrInvalidException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getResult(JobInfo $job, string $batchId, string $resultId): StreamInterface
+    public function getResult(JobInfo $job, string $batchId, string $resultId): StreamInterface|CsvStream
     {
         $basePath = $this->getBasePath();
         $response = $this->send(

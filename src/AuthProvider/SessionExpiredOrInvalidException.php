@@ -12,7 +12,7 @@ use Throwable;
 
 class SessionExpiredOrInvalidException extends \Exception
 {
-    public function __construct(string $message, string $code, Throwable $previous = null)
+    public function __construct(string $message, string $code, ?Throwable $previous = null)
     {
         parent::__construct("$code: $message", 0, $previous);
     }

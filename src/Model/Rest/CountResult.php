@@ -9,7 +9,6 @@
 namespace AE\SalesforceRestSdk\Model\Rest;
 
 use JMS\Serializer\Annotation as Serializer;
-use Traversable;
 
 /**
  * Class CountResult
@@ -44,57 +43,57 @@ class CountResult implements \ArrayAccess, \Iterator, \Countable
         return $this;
     }
 
-    public function offsetExists($offset)
+    public function offsetExists(mixed $offset): bool
     {
         return isset($this->sObjects[$offset]);
     }
 
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset): mixed
     {
         return $this->sObjects[$offset];
     }
 
-    public function offsetSet($offset, $value)
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         $this->sObjects[$offset] = $value;
     }
 
-    public function offsetUnset($offset)
+    public function offsetUnset(mixed $offset): void
     {
         unset($this->sObjects[$offset]);
     }
 
-    public function current()
+    public function current(): mixed
     {
         return current($this->sObjects);
     }
 
-    public function next()
+    public function next(): void
     {
-        return next($this->sObjects);
+        next($this->sObjects);
     }
 
-    public function key()
+    public function key(): mixed
     {
         return key($this->sObjects);
     }
 
-    public function valid()
+    public function valid(): bool
     {
         return false !== current($this->sObjects);
     }
 
-    public function rewind()
+    public function rewind(): void
     {
-        return reset($this->sObjects);
+        reset($this->sObjects);
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->sObjects);
     }
 
-    public function getIterator()
+    public function getIterator(): \ArrayIterator
     {
         return new \ArrayIterator($this->sObjects);
     }

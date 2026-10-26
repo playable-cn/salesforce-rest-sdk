@@ -30,7 +30,7 @@ class CompositeClientTest extends TestCase
      */
     private $client;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->restClient = new Client(
             new OAuthProvider(
